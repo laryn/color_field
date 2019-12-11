@@ -461,19 +461,36 @@ function color_field_field_formatter_settings_form($field, $instance, $view_mode
         '#title' => t('Width'),
         '#type' => 'textfield',
         '#default_value' => $settings['width'],
+        '#description' => t('Enter desired pixel width for the color swatch as a number only.'),
         '#required' => TRUE,
+        "#element_validate" => array('_color_field_validate_number'),
       );
       $element['height'] = array(
         '#title' => t('Height'),
         '#type' => 'textfield',
         '#default_value' => $settings['height'],
+        '#description' => t('Enter desired pixel height for the color swatch as a number only.'),
         '#required' => TRUE,
+        "#element_validate" => array('_color_field_validate_number'),
       );
       break;
   }
 
   return $element;
 
+}
+
+/**
+ * validating numerical input
+ *
+ * @param $element
+ * @param $form_state
+ * @param $form
+ */
+function _color_field_validate_number($element, &$form_state, $form) {
+  if (!is_numeric($element['#value'])) {
+    form_error($element, t('This needs to be a numeric value'));
+  }
 }
 
 /**

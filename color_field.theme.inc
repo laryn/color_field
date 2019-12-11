@@ -184,8 +184,8 @@ function theme_color_field_plain_text($vars) {
  * Formats a color swatch.
  */
 function theme_color_swatch($variables) {
-  $color = $variables['color'];
-  $width = $variables['width'];
-  $height = $variables['height'];
+  $color = check_plain($variables['color']);
+  $width = check_plain($variables['width']);
+  $height = check_plain($variables['height']);
   return '<div class="color-swatch" style="background-color: ' . $color .  '; width: ' . $width . 'px; height: ' . $height . 'px;"></div>';
 }
