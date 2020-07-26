@@ -53,7 +53,7 @@ function _color_field_field_instance_settings_form($field, $instance) {
         '#description' => t('Selectable color palette to accompany the Spectrum widget.'),
         '#states' => array(
           'visible' => array(
-            ':input[name="field[settings][show_palette]"]' => array('checked' => TRUE),
+            ':input[name="instance[settings][show_palette]"]' => array('checked' => TRUE),
           ),
         ),
       );
