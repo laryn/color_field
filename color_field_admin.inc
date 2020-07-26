@@ -162,6 +162,7 @@ function _color_field_field_widget_form(&$form, &$form_state, $field, $instance,
     '#default_value' => $value,
     '#size' => 7,
     '#maxlength' => 7,
+    '#element_validate' => array('color_field_field_widget_element_validate'),
   );
 
   if ($field_settings['opacity']) {
@@ -173,6 +174,7 @@ function _color_field_field_widget_form(&$form, &$form_state, $field, $instance,
       '#default_value' => $opacity,
       '#size' => 4,
       '#maxlength' => 4,
+      '#element_validate' => array('color_field_field_widget_element_validate'),
     );
   }
 

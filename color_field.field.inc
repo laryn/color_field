@@ -177,6 +177,38 @@ function color_field_field_widget_error($element, $error, $form, &$form_state) {
 }
 
 /**
+ * Implements #element_validate function.
+ *
+ * If a palette is set for the Spectrum widget, there are no default values
+ * available until the field has been saved. However, values are needed when a
+ * field is marked as required, otherwise errors occur. Therefore, when rgb or
+ * opacity are empty, and field is required, set the default values to rgb =
+ * #000000 and opacity = 1.
+ *
+ * @see _color_field_field_widget_form()
+ */
+function color_field_field_widget_element_validate($element, &$form_state) {
+  if ($form_state['build_info']['form_id'] == 'field_ui_field_edit_form') {
+    $field = $form_state['build_info']['args'][0];
+    if ($field['widget']['type'] == 'color_field_spectrum_widget' && $field['required']) {
+      $value = drupal_array_get_nested_value($form_state['values'], $element['#parents']);
+      if (empty($value)) {
+        $parents = $element['#parents'];
+        $field_name = array_pop($parents);
+        $field_value = '';
+        if ($field_name == 'rgb') {
+          $field_value = '#000000';
+        }
+        elseif ($field_name == 'opacity') {
+          $field_value = 1;
+        }
+        drupal_array_set_nested_value($form_state['values'], $element['#parents'], $field_value);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_field_is_empty().
  */
 function color_field_field_is_empty($item, $field) {
