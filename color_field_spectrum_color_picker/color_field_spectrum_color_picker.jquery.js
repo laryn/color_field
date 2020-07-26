@@ -20,6 +20,7 @@
           palette:[this.palette],
           showButtons: this.show_buttons,
           allowEmpty: this.allow_empty,
+          appendTo: selector.replace("#edit-", ".form-item-"),
 
           change: function(tinycolor) {
             var opacity_selector = selector.replace("-rgb","-opacity");
