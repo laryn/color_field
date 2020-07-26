@@ -23,10 +23,12 @@
           appendTo: selector.replace("#edit-", ".form-item-"),
 
           change: function(tinycolor) {
-            var opacity_selector = selector.replace("-rgb","-opacity");
-            if ($(opacity_selector)) {
-              $(selector).val(tinycolor.toHexString());
-              $(opacity_selector).val(tinycolor._roundA);
+            if (tinycolor) {
+              var opacity_selector = selector.replace("-rgb","-opacity");
+              if ($(opacity_selector)) {
+                $(selector).val(tinycolor.toHexString());
+                $(opacity_selector).val(tinycolor._roundA);
+              }
             }
           }
 
@@ -35,12 +37,14 @@
         // Set alpha value on load.
         if (this.show_alpha) {
           var tinycolor = $(selector).spectrum("get");
-          var opacity_selector = selector.replace("-rgb","-opacity");
-          var alpha = $(opacity_selector).val();
-          // If alpha is set only.
-          if (alpha > 0) {
-            tinycolor.setAlpha(alpha);
-            $(selector).spectrum("set", tinycolor);
+          if (tinycolor) {
+            var opacity_selector = selector.replace("-rgb","-opacity");
+            var alpha = $(opacity_selector).val();
+            // If alpha is set only.
+            if (alpha > 0) {
+              tinycolor.setAlpha(alpha);
+              $(selector).spectrum("set", tinycolor);
+            }
           }
         }
 
