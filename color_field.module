@@ -111,9 +111,9 @@ function color_field_rgb2hex($rgb = FALSE) {
  *   The colors specified as an RGB triplet.
  */
 function color_field_hex2rgb($hex = FALSE) {
-  $r = hexdec(substr($hex,0,2));
-  $g = hexdec(substr($hex,2,2));
-  $b = hexdec(substr($hex,-2));
+  $r = hexdec(substr($hex, 0, 2));
+  $g = hexdec(substr($hex, 2, 2));
+  $b = hexdec(substr($hex, -2));
   return compact('r', 'g', 'b');
 }
 
@@ -130,9 +130,17 @@ function color_field_hex2rgb($hex = FALSE) {
  *   The colors specified as an RGB triplet plus the opacity.
  */
 function color_field_hex2rgba($hex, $alpha = 1) {
-  $r = hexdec(substr($hex,0,2));
-  $g = hexdec(substr($hex,2,2));
-  $b = hexdec(substr($hex,-2));
+  $r = hexdec(substr($hex, 0, 2));
+  $g = hexdec(substr($hex, 2, 2));
+  $b = hexdec(substr($hex, -2));
   $a = $alpha;
-  return 'rgba(' . implode(compact('r', 'g', 'b', 'a'),',') . ')';
+  return 'rgba(' . implode(compact('r', 'g', 'b', 'a'), ',') . ')';
+}
+
+/**
+ * Implements hook_autoload_info().
+ */
+function color_field_autoload_info() {
+  return array(
+  );
 }

@@ -5,9 +5,9 @@
 (function ($) {
   "use strict";
 
-  Drupal.behaviors.color_field_farbtastic = {
+  Backdrop.behaviors.color_field_farbtastic = {
     attach: function (context) {
-      $.each(Drupal.settings.color_field_farbtastic, function (selector) {
+      $.each(Backdrop.settings.color_field_farbtastic, function (selector) {
         $('#' + this.picker_id).farbtastic('#' + this.id);
       });
     }

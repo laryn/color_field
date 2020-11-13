@@ -1,0 +1,6 @@
+[ColodFieldPlainTextTest]
+name = Color Field (Plain Text)
+description = Check Color Field Main features for Plain Text Widget.
+group = Color Field
+file = color_field.test
+

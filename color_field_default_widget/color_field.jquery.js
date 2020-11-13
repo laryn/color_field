@@ -6,9 +6,9 @@
 (function ($) {
   "use strict";
 
-  Drupal.behaviors.color_field = {
+  Backdrop.behaviors.color_field = {
     attach: function (context) {
-      $.each(Drupal.settings.color_field, function (selector) {
+      $.each(Backdrop.settings.color_field, function (selector) {
         // selector is the textfield.
 
         // Try to get the current selected value so we don't lose the value

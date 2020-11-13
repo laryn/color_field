@@ -45,7 +45,7 @@ function color_field_requirements($phase) {
   $requirements = array();
   if ($phase == 'runtime') {
     $t = get_t();
-    $color_field_library = drupal_get_library('color_field', 'jquery-simple-color');
+    $color_field_library = backdrop_get_library('color_field', 'jquery-simple-color');
     foreach ($color_field_library['js'] as $path => $js) {
       if (!file_exists($path)) {
         $requirements['jquery-simple-color'] = array(
@@ -55,7 +55,7 @@ function color_field_requirements($phase) {
           'description' => $t('The jquery simple color library isn\'t available so this Color Field Module will not support the jQuery Simple Color widget. Please download the plugin (%version) from !website.', array(
             '!website' => l($color_field_library['website'], $color_field_library['website']),
             '%version' => $color_field_library['version'],
-            )
+          )
           ),
         );
         break;
@@ -72,29 +72,8 @@ function color_field_requirements($phase) {
   return $requirements;
 }
 
-/**
- * Add opacity column to color field schema and populate with a default value of 1.
- */
-function color_field_update_7000(array &$sandbox) {
-  $fields = _update_7000_field_read_fields(array(
-    'module' => 'color_field',
-    'storage_type' => 'field_sql_storage',
-    'deleted' => 0,
-  ));
-
-  foreach ($fields as $field) {
-    $tables = array(
-      _field_sql_storage_tablename($field),
-      _field_sql_storage_revision_tablename($field),
-    );
-
-    foreach ($tables as $table) {
-      // Add the opacity column to the table.
-      _color_field_update_7000_add_opacity_column($table, $field['field_name']);
-      _color_field_update_7000_populate_opacity($table, $field['field_name']);
-    }
-  }
-}
+// TODO The old hook_update_N functions cannot be applied to Backdrop.
+function color_field_update_7000(array &$sandbox) { }
 
 /**
  * Add opacity column to a specific table.
@@ -132,8 +111,8 @@ function _color_field_update_7000_add_opacity_column($table, $field_name) {
 function _color_field_update_7000_populate_opacity($table, $field_name) {
   db_update($table)
     ->fields(array(
-      $field_name . '_opacity' => 1,
-    ))
+    $field_name . '_opacity' => 1,
+  ))
     ->isNull($field_name . '_opacity')
     ->execute();
 }

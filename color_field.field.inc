@@ -113,25 +113,31 @@ function color_field_item_property_info() {
 function color_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
   foreach ($items as $delta => $item) {
     // Test required color fields.
-    if($instance['required'] && empty($item['rgb'])) {
+    if ($instance['required'] && empty($item['rgb'])) {
       $errors[$field['field_name']][$langcode][$delta][] = array(
         'error' => 'color_required',
         'message' => t('The color for %field is required.', array(
           '%value' => trim($item['rgb']),
           '%field' => $instance['label'],
         )),
-        'error_element' => array('rgb' => TRUE, 'opacity' => FALSE),
+        'error_element' => array(
+          'rgb' => TRUE,
+          'opacity' => FALSE,
+        ),
       );
     }
     // Test required opacity fields is opacity need to be recorded.
-    if($field['settings']['opacity'] && $instance['required'] && empty($item['opacity'])) {
+    if ($field['settings']['opacity'] && $instance['required'] && empty($item['opacity'])) {
       $errors[$field['field_name']][$langcode][$delta][] = array(
         'error' => 'color_required',
         'message' => t('The opacity for %field is required.', array(
           '%value' => trim($item['rgb']),
           '%field' => $instance['label'],
         )),
-        'error_element' => array('rgb' => FALSE, 'opacity' => TRUE),
+        'error_element' => array(
+          'rgb' => FALSE,
+          'opacity' => TRUE,
+        ),
       );
     }
     // Test rgb field format.
@@ -143,7 +149,10 @@ function color_field_field_validate($entity_type, $entity, $field, $instance, $l
           '%value' => trim($item['rgb']),
           '%field' => $instance['label'],
         )),
-        'error_element' => array('rgb' => TRUE, 'opacity' => FALSE),
+        'error_element' => array(
+          'rgb' => TRUE,
+          'opacity' => FALSE,
+        ),
       );
     }
     // Test opacity field.
@@ -155,7 +164,10 @@ function color_field_field_validate($entity_type, $entity, $field, $instance, $l
           '%value' => trim($item['opacity']),
           '%field' => $instance['label'],
         )),
-        'error_element' => array('rgb' => FALSE, 'opacity' => TRUE),
+        'error_element' => array(
+          'rgb' => FALSE,
+          'opacity' => TRUE,
+        ),
       );
     }
   }
@@ -191,7 +203,7 @@ function color_field_field_widget_element_validate($element, &$form_state) {
   if ($form_state['build_info']['form_id'] == 'field_ui_field_edit_form') {
     $field = $form_state['build_info']['args'][0];
     if ($field['widget']['type'] == 'color_field_spectrum_widget' && $field['required']) {
-      $value = drupal_array_get_nested_value($form_state['values'], $element['#parents']);
+      $value = backdrop_array_get_nested_value($form_state['values'], $element['#parents']);
       if (empty($value)) {
         $parents = $element['#parents'];
         $field_name = array_pop($parents);
@@ -202,7 +214,7 @@ function color_field_field_widget_element_validate($element, &$form_state) {
         elseif ($field_name == 'opacity') {
           $field_value = 1;
         }
-        drupal_array_set_nested_value($form_state['values'], $element['#parents'], $field_value);
+        backdrop_array_set_nested_value($form_state['values'], $element['#parents'], $field_value);
       }
     }
   }
@@ -286,7 +298,7 @@ function color_field_element_info() {
 function color_field_field_widget_info() {
   // If jquery-simple-color is enable so widget can be used.
   $jquery_simple_color_picker_enable = TRUE;
-  $color_field_library_jquery_simple_color = drupal_get_library('color_field', 'jquery-simple-color');
+  $color_field_library_jquery_simple_color = backdrop_get_library('color_field', 'jquery-simple-color');
   foreach ($color_field_library_jquery_simple_color['js'] as $path => $js) {
     if (!file_exists($path)) {
       $jquery_simple_color_picker_enable = FALSE;
@@ -295,7 +307,7 @@ function color_field_field_widget_info() {
 
   // If jquery_dematte_color_picker_enable is enable so widget can be used.
   $jquery_dematte_color_picker_enable = TRUE;
-  $color_field_library_dematte_color = drupal_get_library('color_field', 'dematte-color-picker');
+  $color_field_library_dematte_color = backdrop_get_library('color_field', 'dematte-color-picker');
   foreach ($color_field_library_dematte_color['js'] as $path => $js) {
     if (!file_exists($path)) {
       $jquery_dematte_color_picker_enable = FALSE;
@@ -304,7 +316,7 @@ function color_field_field_widget_info() {
 
   // If jquery_eyecon_color_picker_enable is enable so widget can be used.
   $jquery_eyecon_color_picker_enable = TRUE;
-  $color_field_library_eyecon_color = drupal_get_library('color_field', 'eyecon-color-picker');
+  $color_field_library_eyecon_color = backdrop_get_library('color_field', 'eyecon-color-picker');
   foreach ($color_field_library_eyecon_color['js'] as $path => $js) {
     if (!file_exists($path)) {
       $jquery_eyecon_color_picker_enable = FALSE;
@@ -313,7 +325,7 @@ function color_field_field_widget_info() {
 
   // If jquery_spectrum_color_picker_enable is enable so widget can be used.
   $jquery_spectrum_color_picker_enable = TRUE;
-  $color_field_library_spectrum_color = drupal_get_library('color_field', 'bgrins-spectrum');
+  $color_field_library_spectrum_color = backdrop_get_library('color_field', 'bgrins-spectrum');
   foreach ($color_field_library_spectrum_color['js'] as $path => $js) {
     if (!file_exists($path)) {
       $jquery_spectrum_color_picker_enable = FALSE;
@@ -335,9 +347,9 @@ function color_field_field_widget_info() {
 
   // Color_field_farbtastic_widget need more work before release.
   /*$widgets['color_field_farbtastic_widget'] = array(
-    'label' => t('Farbtastic Color-Picker'),
-    'field types' => array('color_field_rgb'),
-  );*/
+   'label' => t('Farbtastic Color-Picker'),
+   'field types' => array('color_field_rgb'),
+   );*/
 
   // Check if color_field_simple_color can become color_field_simple_widget
   if ($jquery_simple_color_picker_enable) {
@@ -350,19 +362,19 @@ function color_field_field_widget_info() {
 
   // Color_field_dematte_widget need more work before release.
   /*if ($jquery_dematte_color_picker_enable) {
-    $widgets['color_field_dematte_widget'] = array(
-      'label' => t('Dematte Color-Picker'),
-      'field types' => array('color_field_rgb'),
-    );
-  }*/
+   $widgets['color_field_dematte_widget'] = array(
+   'label' => t('Dematte Color-Picker'),
+   'field types' => array('color_field_rgb'),
+   );
+   }*/
 
   // color_field_eyecon_widget need more work before release.
   /*if ($jquery_eyecon_color_picker_enable) {
-    $widgets['color_field_eyecon_widget'] = array(
-      'label' => t('Eyecon Color-Picker'),
-      'field types' => array('color_field_rgb'),
-    );
-  }*/
+   $widgets['color_field_eyecon_widget'] = array(
+   'label' => t('Eyecon Color-Picker'),
+   'field types' => array('color_field_rgb'),
+   );
+   }*/
 
   // Dematte colorPicker.
   if ($jquery_spectrum_color_picker_enable) {
@@ -573,7 +585,7 @@ function color_field_field_formatter_view($entity_type, $entity, $field, $instan
     case 'color_field_default_formatter':
       foreach ($items as $delta => $item) {
         if ($field_settings['opacity']) {
-          $value = color_field_hex2rgba(drupal_substr($item['rgb'], 1, 6), $item['opacity']);
+          $value = color_field_hex2rgba(backdrop_substr($item['rgb'], 1, 6), $item['opacity']);
         }
         else {
           $value = $item['rgb'];
@@ -585,7 +597,7 @@ function color_field_field_formatter_view($entity_type, $entity, $field, $instan
     case 'color_field_css_declaration':
       foreach ($items as $delta => $item) {
         if ($field_settings['opacity'] && $display_settings['opacity_disabled'] === 0) {
-          $value = color_field_hex2rgba(drupal_substr($item['rgb'], 1, 6), $item['opacity']);
+          $value = color_field_hex2rgba(backdrop_substr($item['rgb'], 1, 6), $item['opacity']);
         }
         else {
           $value = $item['rgb'];
@@ -596,14 +608,14 @@ function color_field_field_formatter_view($entity_type, $entity, $field, $instan
 
         $inline_css = $selector . '{ ' . $display_settings['property'] . ': ' . $value . $important . '; }';
 
-        drupal_add_css($inline_css, 'inline');
+        backdrop_add_css($inline_css, 'inline');
       }
       break;
 
     case 'color_field_swatch':
       foreach ($items as $delta => $item) {
         if ($field_settings['opacity']) {
-          $value = color_field_hex2rgba(drupal_substr($item['rgb'], 1, 6), $item['opacity']);
+          $value = color_field_hex2rgba(backdrop_substr($item['rgb'], 1, 6), $item['opacity']);
         }
         else {
           $value = $item['rgb'];

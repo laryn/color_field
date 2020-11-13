@@ -38,7 +38,8 @@ function theme_color_field_spectrum_widget($vars) {
     $element['opacity']['#attributes']['class'] = array('element-invisible');
     unset($element['opacity']['#title']);
     unset($element['opacity']['#description']);
-  } else {
+  }
+  else {
     $settings['show_alpha'] = FALSE;
   }
 
@@ -47,7 +48,7 @@ function theme_color_field_spectrum_widget($vars) {
     // Add Spectrum color picker.
     'library' => array(array('color_field', 'bgrins-spectrum')),
     'js' => array(
-      drupal_get_path('module', 'color_field') . '/color_field_spectrum_color_picker/color_field_spectrum_color_picker.jquery.js',
+      backdrop_get_path('module', 'color_field') . '/color_field_spectrum_color_picker/color_field_spectrum_color_picker.jquery.js',
       array(
         'data' => array('color_field_spectrum' => array('#' . $element['rgb']['#id'] => $settings)),
         'type' => 'setting',
@@ -57,14 +58,14 @@ function theme_color_field_spectrum_widget($vars) {
 
   $output = '';
   $output .= '<div class="link-field-subrow clearfix">';
-  $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['rgb']) . '</div>';
+  $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['rgb']) . '</div>';
 
   if ($field_settings['opacity']) {
-    $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['opacity']) . '</div>';
+    $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['opacity']) . '</div>';
   }
 
   $output .= '</div>';
-  $output .= drupal_render_children($element);
+  $output .= backdrop_render_children($element);
   return $output;
 }
 
@@ -75,7 +76,7 @@ function theme_color_field_simple_widget($vars) {
   $element = $vars['element'];
 
   // Add library.
-  drupal_add_library('color_field', 'jquery-simple-color');
+  backdrop_add_library('color_field', 'jquery-simple-color');
 
   // Javascript settings.
   $settings = array();
@@ -90,25 +91,25 @@ function theme_color_field_simple_widget($vars) {
   // Attach javascript and style.
   $element['rgb']['#attached'] = array(
     'js' => array(
-      drupal_get_path('module', 'color_field') . '/color_field_jquery_simple_color/color_field_jquery_simple_color.jquery.js',
+      backdrop_get_path('module', 'color_field') . '/color_field_jquery_simple_color/color_field_jquery_simple_color.jquery.js',
       array(
         'data' => array('color_field_jquery_simple_color' => array('#' . $element['rgb']['#id'] => $settings)),
         'type' => 'setting',
       ),
     ),
-    'css' => array(drupal_get_path('module', 'color_field') . '/color_field_jquery_simple_color/color_field_jquery_simple_color.css'),
+    'css' => array(backdrop_get_path('module', 'color_field') . '/color_field_jquery_simple_color/color_field_jquery_simple_color.css'),
   );
 
   $output = '';
   $output .= '<div class="link-field-subrow clearfix">';
-  $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['rgb']) . '</div>';
+  $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['rgb']) . '</div>';
 
   if (isset($element['opacity'])) {
-    $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['opacity']) . '</div>';
+    $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['opacity']) . '</div>';
   }
 
   $output .= '</div>';
-  $output .= drupal_render_children($element);
+  $output .= backdrop_render_children($element);
   return $output;
 }
 
@@ -132,14 +133,14 @@ function theme_color_field_default_widget($vars) {
   // Attach javascript and style.
   $element['rgb']['#attached'] = array(
     'js' => array(
-      drupal_get_path('module', 'color_field') . '/color_field_default_widget/color_field.js',
-      drupal_get_path('module', 'color_field') . '/color_field_default_widget/color_field.jquery.js',
+      backdrop_get_path('module', 'color_field') . '/color_field_default_widget/color_field.js',
+      backdrop_get_path('module', 'color_field') . '/color_field_default_widget/color_field.jquery.js',
       array(
         'data' => array('color_field' => array('#' . $settings['id'] => $settings)),
         'type' => 'setting',
       ),
     ),
-    'css' => array(drupal_get_path('module', 'color_field') . '/color_field_default_widget/color_field.css'),
+    'css' => array(backdrop_get_path('module', 'color_field') . '/color_field_default_widget/color_field.css'),
   );
 
   $element['rgb']['#title'] = (isset($element['rgb']['#title'])) ? $element['rgb']['#title'] : '';
@@ -152,14 +153,14 @@ function theme_color_field_default_widget($vars) {
 
   $output = '';
   $output .= '<div class="link-field-subrow clearfix">';
-  $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['rgb']) . '</div>';
+  $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['rgb']) . '</div>';
 
   if (isset($element['opacity'])) {
-    $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['opacity']) . '</div>';
+    $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['opacity']) . '</div>';
   }
 
   $output .= '</div>';
-  $output .= drupal_render_children($element);
+  $output .= backdrop_render_children($element);
   return $output;
 }
 
@@ -167,16 +168,16 @@ function theme_color_field_default_widget($vars) {
  * Formats a plain color field widget.
  */
 function theme_color_field_plain_text($vars) {
-  drupal_add_css(drupal_get_path('module', 'color_field') . '/color_field_plain_text/color_field.css');
+  backdrop_add_css(backdrop_get_path('module', 'color_field') . '/color_field_plain_text/color_field.css');
   $element = $vars['element'];
   $output = '';
   $output .= '<div class="link-field-subrow clearfix">';
-  $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['rgb']) . '</div>';
+  $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['rgb']) . '</div>';
   if (isset($element['opacity'])) {
-    $output .= '<div class="link-field-title color-field-column">' . drupal_render($element['opacity']) . '</div>';
+    $output .= '<div class="link-field-title color-field-column">' . backdrop_render($element['opacity']) . '</div>';
   }
   $output .= '</div>';
-  $output .= drupal_render_children($element);
+  $output .= backdrop_render_children($element);
   return $output;
 }
 

@@ -77,7 +77,7 @@ function _color_field_field_instance_settings_form($field, $instance) {
       );
       break;
 
-    // Spectrum default widget.
+      // Spectrum default widget.
     case 'color_field_default_widget':
       $form['default_colors'] = array(
         '#type' => 'textarea',
@@ -88,8 +88,8 @@ function _color_field_field_instance_settings_form($field, $instance) {
       );
       break;
 
-    // Spectrum simple widget.
-    // Use to be color_field_simple_color.
+      // Spectrum simple widget.
+      // Use to be color_field_simple_color.
     case 'color_field_simple_color':
     case 'color_field_simple_widget':
       $form['cell_width'] = array(
